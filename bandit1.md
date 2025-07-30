@@ -6,6 +6,8 @@ The password for the next level is stored in a file called readme located in the
 
 ## Commands used
 
+ls: list directory contents
+
 cat: concatenate files and print on the standard output
 
 ## Codes
