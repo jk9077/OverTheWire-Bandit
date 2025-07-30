@@ -8,5 +8,7 @@ The goal of this level is for you to log into the game using SSH. The host to wh
 
 ssh: OpenSSH remote login client
 
+### Codes
+
 ```bash
 ssh bandit0@bandit.labs.overthewire.org -p 2220
