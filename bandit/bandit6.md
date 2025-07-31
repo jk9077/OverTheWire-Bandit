@@ -16,6 +16,17 @@ find: search for files in a directory hierarchy
 
 find [-H] [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [expression]
 
+find -size +n: find the size greater than n
+find -size n: find the size n
+find -size -n: find the size less than n
+
+b: Block
+c: Byte
+w: Word
+k: Kilobyte
+M: Megabyte
+G: Gigabyte
+
 ## Code
 ```
 ls -al
