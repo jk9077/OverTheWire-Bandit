@@ -8,3 +8,4 @@ Studying linux with solving OverTheWire-Bandit
 [bandit2](bandit/bandit2.md)
 [bandit3](bandit/bandit3.md)
 [bandit4](bandit/bandit4.md)
+[bandit5](bandit/bandit5.md)
