@@ -12,6 +12,7 @@ tr: translate characters
 tr [ -cds ] [ string1 ] [ string2 ]: translate string1 to string 2
 
 ## Codes
+```
 bandit11@bandit:~$ ls -al
 total 24
 drwxr-xr-x   2 root     root     4096 Jul 28 19:03 .
