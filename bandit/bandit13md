@@ -1,0 +1,115 @@
+# Bandit Level 12 → Level 13
+
+## Level goal
+
+The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work. Use mkdir with a hard to guess directory name. Or better, use the command “mktemp -d”. Then copy the datafile using cp, and rename it using mv (read the manpages!)
+
+## Commends used
+
+xxd: make a hex dump or do the reverse.
+
+xxd -r: convert hexdump into bianry
+
+gzip -d: unzip gzip file
+
+bzip2 -d: unzip bzip2 file
+
+tar -xvf: unzip tar file
+
+## Codes
+```
+bandit12@bandit:~$ ls -al
+total 24
+drwxr-xr-x   2 root     root     4096 Jul 28 19:03 .
+drwxr-xr-x 150 root     root     4096 Jul 28 19:06 ..
+-rw-r--r--   1 root     root      220 Mar 31  2024 .bash_logout
+-rw-r--r--   1 root     root     3851 Jul 28 18:47 .bashrc
+-rw-r-----   1 bandit13 bandit12 2639 Jul 28 19:03 data.txt
+-rw-r--r--   1 root     root      807 Mar 31  2024 .profile
+bandit12@bandit:~$ mkdir /tmp/tmptmp
+bandit12@bandit:~$ cp ./data.txt /tmp/tmptmp
+bandit12@bandit:/tmp/tmptmp$ xxd -r ./data.txt
+�ɇhdata2.binB��BZh91AY&SY+%���ߡ��������������������o������9�4
+���h                                                         ���
+� Cn��P��CM��4@h�2z����Q���h�hddCA�@hhh
+      g��H� �՟VE�.�@��#ƒU]��1�,0���
+                                   �|�$'�:5�4\O�7��_���P-(�	�8�?��"��&t��Z|TI��˖Z�sEB�-���&
+               x��?���d]9���Q���&A�)���`^Ǽ@�4萷
+                                               #���QP��@�[[ʎ@딋��^�a3��/>Z6��+y{Y��
+   W6���k~X��D�Өs��X�&�x^I��	@˳\\ z#�!�SÍ�ꤜ�Tf$:r�-�Q���*�����&)��0�?�M!��-Va<��Ѡt�B�*=o�#��V0U(S9VPx+�C/��[\�
+                                 ���ч�=�0�:v�~Y���R��@Vڥ�V#����_�U�|�a�,*W�E��]��B@��0x��PBbandit12@bandit:/tmp/tmptmp$ xxd -r ./data.txt > ./level12
+bandit12@bandit:/tmp/tmptmp$ file ./level12
+./level12: gzip compressed data, was "data2.bin", last modified: Mon Jul 28 19:03:32 2025, max compression, from Unix, original size modulo 2^32 578
+bandit12@bandit:/tmp/tmptmp$ gzip -d ./level12
+gzip: ./level12: unknown suffix -- ignored
+bandit12@bandit:/tmp/tmptmp$ mv ./level12 ./level12.gz
+bandit12@bandit:/tmp/tmptmp$ ls -al
+total 1368
+drwxrwxr-x    2 bandit12 bandit12    4096 Aug  2 11:58 .
+drwxrwx-wt 2505 root     root     1384448 Aug  2 11:58 ..
+-rw-r-----    1 bandit12 bandit12    2639 Aug  2 11:54 data.txt
+-rw-rw-r--    1 bandit12 bandit12     611 Aug  2 11:57 level12.gz
+bandit12@bandit:/tmp/tmptmp$ gzip -d .level12.gz
+gzip: .level12.gz: No such file or directory
+bandit12@bandit:/tmp/tmptmp$ gzip -d ./level12.gz
+bandit12@bandit:/tmp/tmptmp$ file ./level12.gz
+./level12.gz: cannot open `./level12.gz' (No such file or directory)
+bandit12@bandit:/tmp/tmptmp$ file ./level12
+./level12: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/tmptmp$ bzip2 -d ./level12
+bzip2: Can't guess original name for ./level12 -- using ./level12.out
+bandit12@bandit:/tmp/tmptmp$ ls
+data.txt  level12.out
+bandit12@bandit:/tmp/tmptmp$ file ./level12.out
+./level12.out: gzip compressed data, was "data4.bin", last modified: Mon Jul 28 19:03:32 2025, max compression, from Unix, original size modulo 2^32 20480
+bandit12@bandit:/tmp/tmptmp$ gzip -d ./level12.out
+gzip: ./level12.out: unknown suffix -- ignored
+bandit12@bandit:/tmp/tmptmp$ gzip -d ./level12.out
+gzip: ./level12.out: unknown suffix -- ignored
+bandit12@bandit:/tmp/tmptmp$ mv ./level12.out ./level12.out.gz
+bandit12@bandit:/tmp/tmptmp$ ls -al
+total 1368
+drwxrwxr-x    2 bandit12 bandit12    4096 Aug  2 12:01 .
+drwxrwx-wt 2507 root     root     1384448 Aug  2 12:01 ..
+-rw-r-----    1 bandit12 bandit12    2639 Aug  2 11:54 data.txt
+-rw-rw-r--    1 bandit12 bandit12     434 Aug  2 11:57 level12.out.gz
+bandit12@bandit:/tmp/tmptmp$ gzip -d level12.out.gz
+bandit12@bandit:/tmp/tmptmp$ ls -al
+total 1384
+drwxrwxr-x    2 bandit12 bandit12    4096 Aug  2 12:01 .
+drwxrwx-wt 2507 root     root     1384448 Aug  2 12:01 ..
+-rw-r-----    1 bandit12 bandit12    2639 Aug  2 11:54 data.txt
+-rw-rw-r--    1 bandit12 bandit12   20480 Aug  2 11:57 level12.out
+bandit12@bandit:/tmp/tmptmp$ file level12.out
+level12.out: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmptmp$ tar -xvf ./level12.out
+data5.bin
+bandit12@bandit:/tmp/tmptmp$ file ./data5.bin
+./data5.bin: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmptmp$ tar -xvf ./data5.bin
+data6.bin
+bandit12@bandit:/tmp/tmptmp$ file ./data6.bin
+./data6.bin: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/tmptmp$ bzip2 -d data6.bin
+bzip2: Can't guess original name for data6.bin -- using data6.bin.out
+bandit12@bandit:/tmp/tmptmp$ file ./data6.bin.out
+./data6.bin.out: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/tmptmp$ tar -xvf ./data6.bin.out
+data8.bin
+bandit12@bandit:/tmp/tmptmp$ file ./data8.bin
+./data8.bin: gzip compressed data, was "data9.bin", last modified: Mon Jul 28 19:03:32 2025, max compression, from Unix, original size modulo 2^32 49
+bandit12@bandit:/tmp/tmptmp$ mv ./data8.bin ./data8.bin.gz
+bandit12@bandit:/tmp/tmptmp$ gzip -d ./data8.bin.gz
+bandit12@bandit:/tmp/tmptmp$ ls -al
+total 1412
+drwxrwxr-x    2 bandit12 bandit12    4096 Aug  2 12:05 .
+drwxrwx-wt 2507 root     root     1384448 Aug  2 12:05 ..
+-rw-r--r--    1 bandit12 bandit12   10240 Jul 28 19:03 data5.bin
+-rw-r--r--    1 bandit12 bandit12   10240 Jul 28 19:03 data6.bin.out
+-rw-r--r--    1 bandit12 bandit12      49 Jul 28 19:03 data8.bin
+-rw-r-----    1 bandit12 bandit12    2639 Aug  2 11:54 data.txt
+-rw-rw-r--    1 bandit12 bandit12   20480 Aug  2 11:57 level12.out
+bandit12@bandit:/tmp/tmptmp$ file ./data8.bin
+./data8.bin: ASCII text
+bandit12@bandit:/tmp/tmptmp$ cat data8.bin
+The password is FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
